@@ -3,6 +3,7 @@ import { useGetAllContactsQuery } from "../../redux/api/contactApi";
 import { BsFillPersonPlusFill } from 'react-icons/bs'
 import { useNavigate } from "react-router-dom";
 import { Table } from '@mantine/core';
+import './contactTable.css'
 const ContactTable = () => {
   const token = "5131|zXyFJyY0LjcQJxbWOFEsOUT6qAOOX8QicPMDVMfh";
   const { data, isLoading, isError, isSuccess } = useGetAllContactsQuery(token);
@@ -14,12 +15,15 @@ const ContactTable = () => {
   if (isSuccess) {
     console.log(data?.contacts.data);
     if (data?.contacts.data.length > 0) {
-      const rows = data?.contacts.data.map((element) => (
-        <tr key={element.id}>
-          <td>{element.name}</td>
-          <td>{element.email}</td>
-          <td>{element.phone}</td>
-          <td>{element.address}</td>
+      const rows = data?.contacts.data.map((contact) => (
+        <tr key={contact.id} className=" parent">
+          <td><p>{contact.name}</p>
+            <span className=" text-gray-600">{contact.email}</span>
+          </td>
+        
+          <td className=" ">{contact.phone}</td>
+          <td>{contact.address}</td>
+          <td className=" child">Controls</td>
         </tr>
       ));
       return (<div>
@@ -30,13 +34,13 @@ const ContactTable = () => {
    
 
        
-            <Table>
+            <Table highlightOnHover>
               <thead>
                 <tr>
-                  <th>Element position</th>
-                  <th>Element name</th>
-                  <th>Symbol</th>
-                  <th>Atomic mass</th>
+                  <th>Name</th>
+                  <th>Phone Number</th>
+                  <th>Address</th>
+                  <th className=" min-w-[30px]"></th>
                 </tr>
               </thead>
               <tbody>{rows}</tbody>

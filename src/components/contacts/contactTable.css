@@ -1,0 +1,6 @@
+.parent:hover .child{
+    display: inline-block;
+}
+.child{
+    display: none;
+}
